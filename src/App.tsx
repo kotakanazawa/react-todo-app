@@ -1,13 +1,10 @@
 import { useState } from "react";
+import { Todo } from "./components/Todo";
+import { TodoType } from "./types/TodoType";
 import "./App.css";
 
-type Todo = {
-  id: number;
-  title: string;
-};
-
-function App() {
-  const [todos, setTodos] = useState<Todo[]>([
+const App = () => {
+  const [todos, setTodos] = useState<TodoType[]>([
     {
       id: 1,
       title: "buy a coffee",
@@ -22,7 +19,9 @@ function App() {
     },
   ]);
 
-  const todoElements = todos.map((todo) => <li key={todo.id}>{todo.title}</li>);
+  const todoElements = todos.map((todo) => (
+    <Todo id={todo.id} title={todo.title} />
+  ));
 
   return (
     <>
