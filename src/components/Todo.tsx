@@ -1,6 +1,15 @@
 import { FC } from "react";
-import { TodoType } from "../types/TodoType";
+import type { TodoType } from "../types/TodoType";
 
-export const Todo: FC<TodoType> = ({ id, title }) => {
-  return <li key={id}>{title}</li>;
+type Props = TodoType & {
+  handleDelete: (id: number) => void;
+};
+
+export const Todo: FC<Props> = ({ id, title, handleDelete }) => {
+  return (
+    <li key={id}>
+      {title}
+      <button onClick={() => handleDelete(id)}>Delete</button>
+    </li>
+  );
 };
