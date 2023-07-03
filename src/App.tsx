@@ -4,7 +4,12 @@ import type { TodoType } from "./types/TodoType";
 import "./App.css";
 
 const App = () => {
-  const [todoTitle, setTodoTitle] = useState<string>("");
+  const [todo, setTodo] = useState<TodoType>({
+    id: 0,
+    title: "",
+    isDone: false,
+  });
+
   const [todos, setTodos] = useState<TodoType[]>([
     {
       id: 1,
@@ -20,22 +25,44 @@ const App = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setTodoTitle(value);
+    setTodo((prevTodo) => ({
+      ...prevTodo,
+      title: value,
+    }));
   };
 
   const handleSubmit = () => {
+    if (!todo.title) return;
+
     const newTodo: TodoType = {
       id: todos.length + 1,
-      title: todoTitle,
+      title: todo.title,
       isDone: false,
     };
 
     setTodos((prevTodos) => [...prevTodos, newTodo]);
-    setTodoTitle("");
+    setTodo((prevTodo) => ({
+      ...prevTodo,
+      title: "",
+    }));
   };
 
   const handleDelete = (id: number) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  };
+
+  const handleIsDone = (id: number, checked: boolean) => {
+    setTodos((prevTodos) => {
+      const newTodos = prevTodos.map((prevTodo) => {
+        if (prevTodo.id === id) {
+          return { ...prevTodo, isDone: checked };
+        }
+
+        return prevTodo;
+      });
+
+      return newTodos;
+    });
   };
 
   const todoElements = todos.map((todo) => (
@@ -45,6 +72,7 @@ const App = () => {
       title={todo.title}
       isDone={todo.isDone}
       handleDelete={handleDelete}
+      handleIsDone={handleIsDone}
     />
   ));
 
@@ -54,8 +82,8 @@ const App = () => {
       <label>
         Your todo here:
         <input
-          name={todoTitle}
-          value={todoTitle}
+          name={todo.title}
+          value={todo.title}
           onChange={(e) => handleChange(e)}
         />
       </label>
