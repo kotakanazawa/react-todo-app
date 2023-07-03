@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react";
+import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import { Todo } from "./components/Todo";
 import type { TodoType } from "./types/TodoType";
 import "./App.css";
@@ -22,6 +22,11 @@ const App = () => {
       isDone: false,
     },
   ]);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -86,15 +91,15 @@ const App = () => {
     <>
       <h2>Todo App</h2>
       <label>
-        Your todo here:
         <input
+          ref={inputRef}
           name={todo.title}
           value={todo.title}
+          placeholder="Press enter to add todo"
           onChange={(e) => handleChange(e)}
           onKeyDown={(e) => handleKeyDown(e)}
         />
       </label>
-      <button onClick={handleSubmit}>Add</button>
       <ul>{todoElements}</ul>
     </>
   );
