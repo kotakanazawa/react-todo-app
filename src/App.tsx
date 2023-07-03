@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 import { Todo } from "./components/Todo";
 import type { TodoType } from "./types/TodoType";
 import "./App.css";
@@ -47,6 +47,12 @@ const App = () => {
     }));
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.key !== "Enter") return;
+
+    handleSubmit();
+  };
+
   const handleDelete = (id: number) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
@@ -85,6 +91,7 @@ const App = () => {
           name={todo.title}
           value={todo.title}
           onChange={(e) => handleChange(e)}
+          onKeyDown={(e) => handleKeyDown(e)}
         />
       </label>
       <button onClick={handleSubmit}>Add</button>
