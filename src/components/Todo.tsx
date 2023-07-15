@@ -1,5 +1,6 @@
 import { FC } from "react";
 import type { TodoType } from "../types/TodoType";
+import { ListItem } from "@chakra-ui/react"
 
 type Props = TodoType & {
   handleDelete: (id: number) => void;
@@ -14,7 +15,7 @@ export const Todo: FC<Props> = ({
   handleIsDone,
 }) => {
   return (
-    <li key={id}>
+    <ListItem key={id}>
       <input
         value={title}
         type="checkbox"
@@ -23,6 +24,6 @@ export const Todo: FC<Props> = ({
       />
       {title}
       <button onClick={() => handleDelete(id)}>Delete</button>
-    </li>
+    </ListItem>
   );
 };

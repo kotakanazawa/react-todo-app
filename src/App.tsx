@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import { Todo } from "./components/Todo";
 import type { TodoType } from "./types/TodoType";
-import "./App.css";
+import { Container, Heading, Input, List } from "@chakra-ui/react"
 
 const App = () => {
   const [todo, setTodo] = useState<TodoType>({
@@ -89,20 +89,21 @@ const App = () => {
   ));
 
   return (
-    <>
-      <h2>Todo App</h2>
+    <Container mt='5'>
+      <Heading mb='3'>Todo App</Heading>
       <label>
-        <input
+        <Input
           ref={inputRef}
           name={todo.title}
           value={todo.title}
           placeholder="Press enter to add todo"
           onChange={(e) => handleChange(e)}
           onKeyDown={(e) => handleKeyDown(e)}
+          mb='3'
         />
       </label>
-      <ul>{todoElements}</ul>
-    </>
+      <List>{todoElements}</List>
+    </Container>
   );
 };
 
