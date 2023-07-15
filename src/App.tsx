@@ -24,6 +24,7 @@ const App = () => {
   ]);
 
   const inputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     inputRef.current?.focus();
   });
