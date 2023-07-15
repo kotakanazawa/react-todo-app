@@ -1,6 +1,7 @@
 import { FC } from "react";
 import type { TodoType } from "../types/TodoType";
-import { ListItem } from "@chakra-ui/react"
+import { DeleteIcon } from '@chakra-ui/icons'
+import { ListItem, IconButton } from "@chakra-ui/react"
 
 type Props = TodoType & {
   handleDelete: (id: number) => void;
@@ -23,7 +24,12 @@ export const Todo: FC<Props> = ({
         onChange={(e) => handleIsDone(id, e.target.checked)}
       />
       {title}
-      <button onClick={() => handleDelete(id)}>Delete</button>
+      <IconButton
+        aria-label='Delete todo'
+        icon={<DeleteIcon />}
+        fontSize='md'
+        onClick={() => handleDelete(id)}
+      />
     </ListItem>
   );
 };
