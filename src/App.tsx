@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from "react";
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 import { Todo } from "./components/Todo";
 import type { TodoType } from "./types/TodoType";
 import { Container, Heading, Input, List, useToast } from "@chakra-ui/react"
@@ -22,12 +22,6 @@ const App = () => {
       isDone: false,
     },
   ]);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -99,7 +93,6 @@ const App = () => {
       <Heading mb='3'>Todo App</Heading>
       <label>
         <Input
-          ref={inputRef}
           name={todo.title}
           value={todo.title}
           placeholder="Press enter to add todo"
