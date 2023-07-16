@@ -27,6 +27,7 @@ export const Todo: FC<Props> = ({
           aria-label='Delete todo'
           icon={<DeleteIcon />}
           fontSize='md'
+          ml='2'
           onClick={() => handleDelete(id)}
         />
       </Checkbox>
