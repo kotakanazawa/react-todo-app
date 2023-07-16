@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import { Todo } from "./components/Todo";
 import type { TodoType } from "./types/TodoType";
-import { Container, Heading, Input, List } from "@chakra-ui/react"
+import { Container, Heading, Input, List, useToast } from "@chakra-ui/react"
 
 const App = () => {
   const [todo, setTodo] = useState<TodoType>({
@@ -59,8 +59,14 @@ const App = () => {
     handleSubmit();
   };
 
+  const toast = useToast()
   const handleDelete = (id: number) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    toast({
+      title: 'Todo Deleted',
+      status: 'success',
+      duration: 1000,
+    })
   };
 
   const handleIsDone = (id: number, checked: boolean) => {
